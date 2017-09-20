@@ -1,7 +1,9 @@
 package br.com.amadei.weather.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -24,6 +26,36 @@ public class WeatherConditions {
     private CloudInfo clouds;
 
     private SysInfo sys;
+
+    private int id;
+
+    private String name;
+
+    private int cod;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getCod() {
+        return cod;
+    }
+
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
 
     @JsonProperty("dt")
     private long calculationTimestamp;
@@ -122,6 +154,9 @@ public class WeatherConditions {
                 ", wind=" + wind +
                 ", clouds=" + clouds +
                 ", sys=" + sys +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", cod=" + cod +
                 ", calculationTimestamp=" + calculationTimestamp +
                 ", calculation=" + calculation +
                 '}';
@@ -150,15 +185,9 @@ class CloudInfo {
 class SysInfo {
     private String country;
 
-    @JsonProperty("sunrise")
-    private long sunriseTimestamp;
+    private long sunrise;
 
-    private Date sunrise;
-
-    @JsonProperty("sunset")
-    private long sunsetTimestamp;
-
-    private Date sunset;
+    private long sunset;
 
     public String getCountry() {
         return country;
@@ -168,35 +197,20 @@ class SysInfo {
         this.country = country;
     }
 
-    public long getSunriseTimestamp() {
-        return sunriseTimestamp;
-    }
 
-    public void setSunriseTimestamp(long sunriseTimestamp) {
-        this.sunriseTimestamp = sunriseTimestamp;
-    }
-
-    public Date getSunrise() {
+    public long getSunrise() {
         return sunrise;
     }
 
-    public void setSunrise(Date sunrise) {
+    public void setSunrise(long sunrise) {
         this.sunrise = sunrise;
     }
 
-    public long getSunsetTimestamp() {
-        return sunsetTimestamp;
-    }
-
-    public void setSunsetTimestamp(long sunsetTimestamp) {
-        this.sunsetTimestamp = sunsetTimestamp;
-    }
-
-    public Date getSunset() {
+    public long getSunset() {
         return sunset;
     }
 
-    public void setSunset(Date sunset) {
+    public void setSunset(long sunset) {
         this.sunset = sunset;
     }
 
@@ -204,9 +218,7 @@ class SysInfo {
     public String toString() {
         return "SysInfo{" +
                 "country='" + country + '\'' +
-                ", sunriseTimestamp=" + sunriseTimestamp +
                 ", sunrise=" + sunrise +
-                ", sunsetTimestamp=" + sunsetTimestamp +
                 ", sunset=" + sunset +
                 '}';
     }
